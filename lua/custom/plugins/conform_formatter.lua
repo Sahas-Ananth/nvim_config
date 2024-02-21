@@ -27,7 +27,7 @@ return {
             hpp = { 'clang_format' },
             cuda = { 'clang_format' },
             cmake = { 'cmake_format' },
-            latex = { 'latexindent' },
+            tex = { 'latexindent' },
             markdown = { 'markdown-toc', 'mdformat' },
             lua = { 'stylua' },
             ['*'] = { 'codespell' },
