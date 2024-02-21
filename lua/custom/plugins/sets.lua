@@ -8,7 +8,7 @@ vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 
--- vim.opt.smartindent = true
+vim.opt.smartindent = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -28,7 +28,8 @@ vim.opt.signcolumn = 'yes'
 -- Tbh I don't know what this does, but it's in thePrimeagen's config. :shrug:
 vim.opt.isfname:append '@-@'
 
-vim.opt.colorcolumn = "80"
+vim.opt.colorcolumn = '120'
+-- vim.opt.textwidth = 120
 
 -- chris@machine's config.
 vim.opt.showtabline = 2    -- always show tabs
