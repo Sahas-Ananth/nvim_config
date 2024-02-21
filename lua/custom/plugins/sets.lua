@@ -15,18 +15,18 @@ vim.opt.backup = false
 
 -- Create undo directory in home directory if it doesn't exist.
 -- if undo dir doesn't exist, create it
-if vim.fn.isdirectory(os.getenv("HOME") .. "/.nvim/undo_dir") == 0 then
-    vim.fn.mkdir(os.getenv("HOME") .. "/.nvim/undo_dir", "p")
+if vim.fn.isdirectory(os.getenv 'HOME' .. '/.nvim/undo_dir') == 0 then
+    vim.fn.mkdir(os.getenv 'HOME' .. '/.nvim/undo_dir', 'p')
 end
 
-vim.opt.undodir = os.getenv("HOME") .. "/.nvim/undo_dir"
+vim.opt.undodir = os.getenv 'HOME' .. '/.nvim/undo_dir'
 vim.opt.undofile = true
 
 vim.opt.scrolloff = 8
-vim.opt.signcolumn = "yes"
+vim.opt.signcolumn = 'yes'
 
 -- Tbh I don't know what this does, but it's in thePrimeagen's config. :shrug:
-vim.opt.isfname:append("@-@")
+vim.opt.isfname:append '@-@'
 
 vim.opt.colorcolumn = "80"
 
