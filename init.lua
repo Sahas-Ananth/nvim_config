@@ -210,6 +210,7 @@ require('lazy').setup({
     lazy = false,
     priority = 1000,
     config = function()
+      vim.g.moonflyVirtualTextColor = true
       vim.cmd.colorscheme 'moonfly'
     end,
   },
