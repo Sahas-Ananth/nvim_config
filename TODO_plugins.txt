@@ -1,5 +1,7 @@
-1. https://github.com/folke/trouble.nvim or https://git.sr.ht/~whynothugo/lsp_lines.nvim
-2. Lazygit with Neovim plugin.
-3. Look for a Neovim plugin to get better integration with Kitty Terminal.
-4. Reconfigure CMP to show icons, and make copilot 3rd choice or better yet change the accept from <CR> (or enter) to
-   something like <C-CR> (Control+Enter).
+✅1. https://github.com/folke/trouble.nvim or https://git.sr.ht/~whynothugo/lsp_lines.nvim
+    And: Solved color LSP Errors by toggling a option before setting the colortheme. However, Still LSP_lines seems interesting trouble not so much.
+  2. Lazygit with Neovim plugin.
+  3. Look for a Neovim plugin to get better integration with Kitty Terminal. (https://github.com/garyhurtz/cmp_kitty)
+✅4. Reconfigure CMP to show icons.
+✅5. Make copilot 3rd choice or better yet change the accept from <CR> (or enter) to something like <C-CR> (Control+Enter).
+  6. Look into: https://github.com/micangl/cmp-vimtex
