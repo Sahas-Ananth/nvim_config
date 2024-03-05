@@ -120,6 +120,9 @@ require('lazy').setup({
 
       -- Better Sorting
       'lukas-reineke/cmp-under-comparator',
+
+      -- LSP Kind Icons (Nicer icons in CMP.)
+      'onsails/lspkind.nvim',
     },
   },
 
@@ -673,10 +676,16 @@ end
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
+local lspkind = require 'lspkind'
 require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
+  formatting = {
+    format = lspkind.cmp_format {
+      symbol_map = { Copilot = '' },
+    },
+  },
   snippet = {
     expand = function(args)
       luasnip.lsp_expand(args.body)
@@ -694,6 +703,7 @@ cmp.setup {
       cmp.config.compare.exact,
       cmp.config.compare.score,
       require('cmp-under-comparator').under,
+      require('copilot_cmp.comparators').prioritize,
       cmp.config.compare.kind,
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
