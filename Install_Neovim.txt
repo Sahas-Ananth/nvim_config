@@ -1,0 +1,42 @@
+11409  mkdir neovim
+11410  cd neovim
+11411  ll
+11412  curl -LO https://github.com/neovim/neovim/releases/download/v0.9.4/nvim.appimage
+11413  ll
+11414  git clone git@github.com:Sahas-Ananth/nvim_config.git
+11415  ln -s --help
+11416  cp nvim.appimage nvim
+11417  ll
+11418  rm nvim
+11419  ln -s /home/scout/neovim/nvim_config /home/scout/.config/nvim
+11420  ll ~/.config/
+11421  chmod u+x nvim.appimage
+11422  ./nvim.appimage 
+11423  ll
+11424  cp nvim.appimage nvim
+11425  ll
+11426  ln -s /home/scout/neovim/nvim /home/scout/.local/bin/nvim
+11427  ll /home/scout/.local/bin/nvim
+11428  ll /home/scout/.local/bin/
+11429  nvim
+11430  curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash - &&sudo apt install nodejs
+11431  sudo apt install nodejs
+11432  sudo apt upgrade
+11433  npm -v
+11434  node -v
+11435  npm install tree-sitter-cli
+11436  nvim
+11437  sudo apt install ripgrep fd-find
+11438  fd
+11439  fdfind
+11440  which fdfind
+11441  ln -s $(which fdfind) ~/.local/bin/fd
+11442  fd -h
+11443  nvim
+11444  xclip
+11445  xclip --version
+11446  nvim
+11447  npm uninstall tree-sitter-cli
+11448  npm install -g tree-sitter-cli
+11449  sudo npm install -g tree-sitter-cli
+11450  nvim
