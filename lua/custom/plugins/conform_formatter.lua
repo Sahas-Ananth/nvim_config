@@ -28,7 +28,7 @@ return {
             cuda = { 'clang_format' },
             cmake = { 'cmake_format' },
             tex = { 'latexindent' },
-            markdown = { 'markdown-toc', 'mdformat' },
+            markdown = { 'markdown-toc' },
             lua = { 'stylua' },
             ['*'] = { 'codespell' },
         },
