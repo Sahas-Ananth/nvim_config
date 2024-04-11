@@ -5,3 +5,5 @@
 ✅4. Reconfigure CMP to show icons.
 ✅5. Make copilot 3rd choice or better yet change the accept from <CR> (or enter) to something like <C-CR> (Control+Enter).
   6. Look into: https://github.com/micangl/cmp-vimtex
+  7. Maybe install: https://github.com/theHamsta/nvim-dap-virtual-text
+  8. Look into: https://github.com/luukvbaal/statuscol.nvim
