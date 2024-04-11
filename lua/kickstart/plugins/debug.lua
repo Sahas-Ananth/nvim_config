@@ -13,6 +13,7 @@ return {
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
+    'nvim-neotest/nvim-nio',
 
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
@@ -38,6 +39,7 @@ return {
       -- online, please don't ask me how to install them :)
       ensure_installed = {
         -- Update this to ensure that you have the debuggers for the langs you want
+        'debugpy',
         'delve',
       },
     }
@@ -73,6 +75,38 @@ return {
       --   },
       -- },
     }
+
+    -- Sahas Debug Breakpoint UI colors given by: https://github.com/bluz71/vim-moonfly-colors/blob/master/lua/moonfly/init.lua
+    vim.fn.sign_define('DapBreakpoint', {
+      text = '🔴',
+      texthl = 'MoonflyRed',
+      linehl = '',
+      numhl = 'MoonflyRed',
+    })
+    vim.fn.sign_define('DapBreakpointCondition', {
+      text = '',
+      texthl = 'MoonflyRed',
+      linehl = 'DapBreakpoint',
+      numhl = 'DapBreakpoint',
+    })
+    vim.fn.sign_define('DapBreakpointRejected', {
+      text = '',
+      texthl = 'MoonflyOrange',
+      linehl = 'DapBreakpoint',
+      numhl = 'DapBreakpoint',
+    })
+    vim.fn.sign_define('DapStopped', {
+      text = '',
+      texthl = 'MoonflyLime',
+      linehl = 'DapBreakpoint',
+      numhl = 'DapBreakpoint',
+    })
+    vim.fn.sign_define('DapLogPoint', {
+      text = '',
+      texthl = 'MoonflyYellow',
+      linehl = 'DapBreakpoint',
+      numhl = 'DapBreakpoint',
+    })
 
     -- Toggle to see last session result. Without this, you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle, { desc = 'Debug: See last session result.' })
