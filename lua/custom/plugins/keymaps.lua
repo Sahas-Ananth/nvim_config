@@ -6,8 +6,8 @@ vim.keymap.set('n', '<C-b>', ':Neotree toggle reveal<CR>',
 -- Move selected line / block of text in visual mode.
 vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv",
     { desc = 'Move selected line / block of text Down in Visual/Visual Line mode.' })
-vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv",
-    { desc = 'Move selected line / block of text Up in Visual/Visual Line mode.' })
+-- vim.keymap.set('v', '<M-K>', ":m '<-2<CR>gv=gv",
+--     { desc = 'Move selected line / block of text Up in Visual/Visual Line mode.' })
 
 -- Append to end of line in normal mode but keep cursor in place.
 vim.keymap.set('n', 'J', 'mzJ`z', { desc = 'Append next line to end of line in normal mode but keep cursor in place.' })
