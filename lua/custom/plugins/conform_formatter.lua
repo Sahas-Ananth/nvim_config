@@ -37,5 +37,11 @@ return {
             async = false,
             timeout_ms = 500,
         },
+        -- Modifying Latex Indent to take search for a local formatting specs. See: https://ctan.uib.no/support/latexindent/documentation/latexindent.pdf#page=98&zoom=264
+        formatters = {
+            latexindent = {
+                prepend_args = { '-l', '-m' },
+            },
+        },
     },
 }
