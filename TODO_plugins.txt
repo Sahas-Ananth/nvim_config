@@ -7,3 +7,4 @@
   6. Look into: https://github.com/micangl/cmp-vimtex
   7. Maybe install: https://github.com/theHamsta/nvim-dap-virtual-text
   8. Look into: https://github.com/luukvbaal/statuscol.nvim
+  9. Check out: https://github.com/Vigemus/iron.nvim
