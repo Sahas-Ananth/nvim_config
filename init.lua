@@ -691,6 +691,11 @@ require('luasnip.loaders.from_vscode').lazy_load()
 luasnip.config.setup {}
 
 cmp.setup {
+  view = {
+    entries = {
+      follow_cursor = true,
+    },
+  },
   formatting = {
     format = lspkind.cmp_format {
       symbol_map = { Copilot = '' },
@@ -713,7 +718,7 @@ cmp.setup {
       cmp.config.compare.exact,
       cmp.config.compare.score,
       require('cmp-under-comparator').under,
-      require('copilot_cmp.comparators').prioritize,
+      -- require('copilot_cmp.comparators').prioritize,
       cmp.config.compare.kind,
       cmp.config.compare.sort_text,
       cmp.config.compare.length,
@@ -769,8 +774,9 @@ cmp.setup {
   },
   sources = {
     { name = 'nvim_lsp' },
+    { name = 'vimtex' },
+    -- { name = 'omni' },
     { name = 'luasnip' },
-    { name = 'omni' },
     { name = 'buffer' },
     { name = 'copilot' },
     { name = 'path' },
