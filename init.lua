@@ -116,7 +116,7 @@ require('lazy').setup({
       'hrsh7th/cmp-buffer',
 
       -- VimTex completion
-      'hrsh7th/cmp-omni',
+      -- 'hrsh7th/cmp-omni',
 
       -- Better Sorting
       'lukas-reineke/cmp-under-comparator',
