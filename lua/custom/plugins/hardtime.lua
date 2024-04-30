@@ -3,7 +3,7 @@
 return {
   "m4xshen/hardtime.nvim",
   opts = {
-    max_time = 0,
+    -- max_time = 0,
     disable_mouse = false,
     disabled_filetypes = { 'neo-tree', "neo-tree-popup", "notify", "lazy", "mason" },
   },
