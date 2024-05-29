@@ -93,6 +93,9 @@ require('lazy').setup({
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
     },
+    opts = {
+      inlay_hints = { enabled = true },
+    },
   },
 
   {
@@ -674,6 +677,15 @@ mason_lspconfig.setup_handlers {
       filetypes = (servers[server_name] or {}).filetypes,
     }
   end,
+}
+
+require('lspconfig').clangd.setup {
+  capabilities = capabilities,
+  on_attach = on_attach,
+  cmd = {
+    'clangd',
+    '--offset-encoding=utf-16',
+  },
 }
 
 -- [[ Configure nvim-cmp ]]
