@@ -42,9 +42,9 @@ return {
             latexindent = {
                 prepend_args = { '-l', '-m' },
             },
-            cmake_format = {
-                prepend_args = { '--tab-size 2' },
-            },
+            -- cmake_format = {
+            --     args = { '--tab-size 2', '--' },
+            -- },
         },
     },
 }
