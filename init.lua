@@ -117,7 +117,7 @@ require('lazy').setup({
             'hrsh7th/cmp-path',
             'hrsh7th/cmp-emoji',
             'hrsh7th/cmp-buffer',
-
+            'hrsh7th/cmp-cmdline',
             -- VimTex completion
             -- 'hrsh7th/cmp-omni',
 
@@ -812,6 +812,26 @@ cmp.setup {
         { name = 'emoji' },
     },
 }
+
+-- `/` cmdline setup.
+cmp.setup.cmdline('/', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = {
+        { name = 'buffer' },
+    },
+})
+
+-- `:` cmdline setup.
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' },
+        { name = 'buffer', keyword_length = 2 },
+    }, {
+        { name = 'cmdline' },
+    }),
+    matching = { disallow_symbol_nonprefix_matching = false },
+})
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
