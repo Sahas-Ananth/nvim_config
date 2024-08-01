@@ -10,12 +10,26 @@ return {
         'zbirenbaum/copilot.lua',
         cmd = 'Copilot',
         event = 'InsertEnter',
+        keys = {
+            {
+                '<leader>tc',
+                function()
+                    if require('copilot.client').is_disabled() then
+                        require('copilot.command').enable()
+                    else
+                        require('copilot.command').disable()
+                    end
+                end,
+                desc = 'Toggle Copilot',
+            },
+        },
         config = function()
             require('copilot').setup {
                 suggestion = { enabled = false },
                 panel = { enabled = false },
                 filetypes = { yaml = true, markdown = true, gitcommit = true, gitrebase = true },
             }
+            vim.cmd 'silent! Copilot disable'
         end,
     },
     {
