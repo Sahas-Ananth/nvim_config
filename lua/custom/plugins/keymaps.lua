@@ -1,6 +1,6 @@
 -- Custom keymaps for neovim.
 
-vim.keymap.set('n', '<C-b>', ':Neotree toggle reveal<CR>',
+vim.keymap.set('n', '<M-b>', ':Neotree toggle reveal<CR>',
     { noremap = true, silent = true, desc = 'Toggle Neotree reveal.' })
 
 -- Move selected line / block of text in visual mode.
@@ -45,10 +45,16 @@ vim.keymap.set('n', '<leader>x', '<cmd>!chmod +x %<CR>', { silent = true, desc =
 -- https://www.youtube.com/watch?v=ctH-a-1eUME&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ&ab_channel=chris%40machine
 
 -- Better window navigation
-vim.keymap.set('n', '<C-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Go to the Left window.' })
-vim.keymap.set('n', '<C-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Go to the Down window.' })
-vim.keymap.set('n', '<C-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Go to the Up window.' })
-vim.keymap.set('n', '<C-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Go to the Right window.' })
+vim.keymap.set('n', '<M-h>', '<C-w>h', { noremap = true, silent = true, desc = 'Go to the Left window.' })
+vim.keymap.set('n', '<M-j>', '<C-w>j', { noremap = true, silent = true, desc = 'Go to the Down window.' })
+vim.keymap.set('n', '<M-k>', '<C-w>k', { noremap = true, silent = true, desc = 'Go to the Up window.' })
+vim.keymap.set('n', '<M-l>', '<C-w>l', { noremap = true, silent = true, desc = 'Go to the Right window.' })
+vim.keymap.set('n', '<M-s>', '<C-w>s', { noremap = true, silent = true, desc = 'HSplit window.' })
+vim.keymap.set('n', '<M-v>', '<C-w>v', { noremap = true, silent = true, desc = 'VSplit window.' })
+vim.keymap.set('n', '<M-q>', '<C-w>q', { noremap = true, silent = true, desc = 'Quit a window.' })
+vim.keymap.set('n', '<M-x>', '<C-w>x', { noremap = true, silent = true, desc = 'Swap windows.' })
+vim.keymap.set('n', '<M-o>', '<C-w>o', { noremap = true, silent = true, desc = 'Close all windows except current.' })
+vim.keymap.set('n', '<M-n>', '<cmd>enew<cr>', { noremap = true, silent = true, desc = 'New file.' })
 
 -- Resize with arrows
 vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true, desc = 'Resize: Up.' })
