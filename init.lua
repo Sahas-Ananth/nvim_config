@@ -685,6 +685,7 @@ mason_lspconfig.setup_handlers {
 
 require('lspconfig').clangd.setup {
     capabilities = capabilities,
+    filetypes = { 'h', 'hpp', 'c', 'cpp', 'cuh', 'cu', 'objc', 'objcpp', 'proto' },
     on_attach = on_attach,
     cmd = {
         'clangd',
@@ -834,4 +835,4 @@ cmp.setup.cmdline(':', {
 })
 
 -- The line beneath this is called `modeline`. See `:help modeline`
--- vim: ts=2 sts=2 sw=2 et
+-- vim: ts=4 sts=4 sw=4 et
