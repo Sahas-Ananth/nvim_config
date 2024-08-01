@@ -1,5 +1,10 @@
 -- Undo Tree Plugin
 
 return {
-  "mbbill/undotree",
+    'mbbill/undotree',
+    keys = { {
+        '<leader>u',
+        '<cmd>UndotreeToggle<cr>',
+        desc = 'Toggle undo tree.',
+    } },
 }
