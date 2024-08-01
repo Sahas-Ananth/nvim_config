@@ -20,7 +20,7 @@ return {
     },
     keys = {
         {
-            '<leader>ls',
+            '<leader>sS',
             function()
                 require('auto-session.session-lens').search_session()
             end,
