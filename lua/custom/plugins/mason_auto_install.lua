@@ -21,6 +21,7 @@ return {
             'mdformat',
             'mypy',
             'stylua',
+            'ruff',
         },
     },
 }
