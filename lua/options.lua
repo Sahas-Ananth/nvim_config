@@ -32,7 +32,7 @@ vim.opt.completeopt = 'menuone,noselect'
 vim.opt.termguicolors = true
 
 -- Don't show the mode, since it's already in the status line
--- vim.opt.showmode = false
+vim.opt.showmode = false
 
 -- Configure how new splits should be opened
 vim.opt.splitright = true
@@ -76,5 +76,5 @@ vim.opt.signcolumn = 'yes'
 vim.opt.showtabline = 2 -- always show tabs
 
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+    vim.opt.clipboard = 'unnamedplus'
 end)
