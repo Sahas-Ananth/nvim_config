@@ -68,7 +68,7 @@ return {
                 },
             },
             formatting = {
-                format = require("lspkind").cmp_format {
+                format = require('lspkind').cmp_format {
                     symbol_map = { Copilot = '' },
                 },
             },
@@ -109,13 +109,12 @@ return {
                 { name = 'buffer' },
                 --{ name = 'copilot' },
             },
-
         }
     end,
     config = function(_, opts)
-        local cmp = require("cmp")
+        local cmp = require 'cmp'
         cmp.setup(opts)
-        cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
+        cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
         -- `/` cmdline setup.
         cmp.setup.cmdline('/', {
             mapping = cmp.mapping.preset.cmdline(),
@@ -135,5 +134,5 @@ return {
             }),
             matching = { disallow_symbol_nonprefix_matching = false },
         })
-    end
+    end,
 }
