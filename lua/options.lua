@@ -19,7 +19,7 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Keep signcolumn on by default
-vim.wo.signcolumn = 'yes'
+vim.opt.signcolumn = 'auto:3'
 
 -- Decrease update time
 vim.opt.updatetime = 250
@@ -28,7 +28,6 @@ vim.opt.timeoutlen = 300
 -- Set completeopt to have a better completion experience
 vim.opt.completeopt = 'menuone,noselect'
 
--- NOTE: You should make sure your terminal supports this
 vim.opt.termguicolors = true
 
 -- Don't show the mode, since it's already in the status line
@@ -67,11 +66,6 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 
 vim.opt.colorcolumn = { 88, 120 }
-
-vim.opt.undofile = true
-
-vim.opt.scrolloff = 8
-vim.opt.signcolumn = 'yes'
 
 vim.opt.showtabline = 2 -- always show tabs
 

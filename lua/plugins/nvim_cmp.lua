@@ -1,10 +1,9 @@
 -- Autocompletion plugin
 -- Repo: https://github.com/hrsh7th/nvim-cmp
 
---- @type LazyPlugin
 return {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = { 'InsertEnter', 'CmdlineEnter' },
     dependencies = {
         -- Snippet Engine & its associated nvim-cmp source
         --- @type LazyPlugin
@@ -22,6 +21,7 @@ return {
             dependencies = {
                 -- Adds a number of user-friendly snippets
                 'rafamadriz/friendly-snippets',
+                lazy = true,
                 config = function()
                     require('luasnip.loaders.from_vscode').lazy_load()
                 end,
@@ -35,19 +35,19 @@ return {
                 enable_autosnippets = true,
             },
         },
-        'saadparwaiz1/cmp_luasnip',
+        { 'saadparwaiz1/cmp_luasnip', lazy = true },
 
         -- Adds LSP completion capabilities
-        'hrsh7th/cmp-nvim-lsp',
-        'hrsh7th/cmp-path',
+        { 'hrsh7th/cmp-nvim-lsp', lazy = true },
+        { 'hrsh7th/cmp-path', lazy = true },
 
         -- Additional Cmp sources
-        'hrsh7th/cmp-path',
-        'hrsh7th/cmp-buffer',
-        'hrsh7th/cmp-cmdline',
+        { 'hrsh7th/cmp-path', lazy = true },
+        { 'hrsh7th/cmp-buffer', lazy = true },
+        { 'hrsh7th/cmp-cmdline', lazy = true },
 
         -- LSP Kind Icons (Nicer icons in CMP.)
-        'onsails/lspkind.nvim',
+        { 'onsails/lspkind.nvim', lazy = true },
 
         -- Autopair plugin.
         -- Repo: https://github.com/windwp/nvim-autopairs
@@ -102,12 +102,12 @@ return {
             sources = {
                 -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
                 { name = 'lazydev', group_index = 0 },
-                -- { name = 'vimtex' },
+                { name = 'vimtex' },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
                 { name = 'path' },
                 { name = 'buffer' },
-                --{ name = 'copilot' },
+                { name = 'copilot' },
             },
         }
     end,
@@ -115,6 +115,7 @@ return {
         local cmp = require 'cmp'
         cmp.setup(opts)
         cmp.event:on('confirm_done', require('nvim-autopairs.completion.cmp').on_confirm_done())
+        vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
         -- `/` cmdline setup.
         cmp.setup.cmdline('/', {
             mapping = cmp.mapping.preset.cmdline(),

@@ -6,9 +6,10 @@ return {
         { 'nvim-treesitter/nvim-treesitter-textobjects', event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' } },
         'nvim-treesitter/nvim-treesitter-context',
         'windwp/nvim-ts-autotag',
+        { 'andymass/vim-matchup', lazy = true },
     },
     build = ':TSUpdate',
-    lazy = vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
+    lazy = true, -- vim.fn.argc(-1) == 0, -- load treesitter early when opening a file from the cmdline
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     opts = {
@@ -130,6 +131,9 @@ return {
             enable_rename = true,
             enable_close = true,
             enable_close_on_slash = true,
+        },
+        matchup = {
+            enable = true,
         },
     },
 }
