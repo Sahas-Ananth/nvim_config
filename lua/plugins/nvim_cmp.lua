@@ -48,6 +48,14 @@ return {
 
         -- LSP Kind Icons (Nicer icons in CMP.)
         'onsails/lspkind.nvim',
+
+        -- Autopair plugin.
+        -- Repo: https://github.com/windwp/nvim-autopairs
+        {
+            'windwp/nvim-autopairs',
+            event = 'InsertEnter',
+            config = true,
+        },
     },
     opts = function()
         local cmp = require 'cmp'
@@ -57,6 +65,11 @@ return {
             view = {
                 entries = {
                     follow_cursor = true,
+                },
+            },
+            formatting = {
+                format = require("lspkind").cmp_format {
+                    symbol_map = { Copilot = '' },
                 },
             },
             snippet = {
@@ -102,6 +115,7 @@ return {
     config = function(_, opts)
         local cmp = require("cmp")
         cmp.setup(opts)
+        cmp.event:on("confirm_done", require("nvim-autopairs.completion.cmp").on_confirm_done())
         -- `/` cmdline setup.
         cmp.setup.cmdline('/', {
             mapping = cmp.mapping.preset.cmdline(),
