@@ -1,6 +1,10 @@
 --  Plugin to increment and decrement stuff intelligently
+--  Maybe write your own and remove this. This seems to mess with Ctrl-A and Ctrl-X. Enabled for now.
+--  Look at: https://vi.stackexchange.com/a/18084
+--  https://github.com/monaqa/dial.nvim - This seems like a better alternative and used in Lazyvim (cp conf from there.)
 return {
     'RutaTang/compter.nvim',
+    enabled = true,
     config = function()
         require('compter').setup {
             -- Provide and customize templates
@@ -8,7 +12,7 @@ return {
                 -- for numbers
                 {
                     pattern = [[-\?\d\+]],
-                    priority = 0,
+                    priority = 99,
                     increase = function(content)
                         content = tonumber(content)
                         return content + 1, true

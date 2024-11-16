@@ -3,6 +3,7 @@
 return {
     'danymat/neogen',
     dependencies = 'nvim-treesitter/nvim-treesitter',
+    lazy = true,
     opts = {
         enabled = true,
         snippet_engine = 'luasnip',

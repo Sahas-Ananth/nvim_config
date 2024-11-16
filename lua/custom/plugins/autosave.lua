@@ -2,9 +2,8 @@
 
 return {
     'okuuva/auto-save.nvim',
-    config = function()
-        require('auto-save').setup {
-            debounce_delay = 10000,
-        }
-    end,
+    event = { 'InsertLeave', 'TextChanged' },
+    opts = {
+        debounce_delay = 10000,
+    },
 }

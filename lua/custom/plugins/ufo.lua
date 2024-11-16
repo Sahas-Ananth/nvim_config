@@ -2,11 +2,12 @@
 return {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
-    event = 'VeryLazy',
+    -- event = 'VeryLazy',
+    event = 'BufRead',
     opts = {
         -- INFO: Uncomment to use treeitter as fold provider, otherwise nvim lsp is used
         -- provider_selector = function(bufnr, filetype, buftype)
-        --   return { "treesitter", "indent" }
+        --     return { 'treesitter', 'indent' }
         -- end,
         open_fold_hl_timeout = 400,
         close_fold_kinds_for_ft = { default = { 'imports', 'comment' } },
@@ -26,7 +27,7 @@ return {
     },
     init = function()
         vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
-        vim.o.foldcolumn = '1' -- '0' is not bad
+        vim.o.foldcolumn = 'auto:2' -- '0' is not bad
         vim.o.foldlevel = 99 -- Using ufo provider need a large value, feel free to decrease the value
         vim.o.foldlevelstart = 99
         vim.o.foldenable = true
@@ -66,16 +67,16 @@ return {
         opts['fold_virt_text_handler'] = handler
 
         -- Custom Fold By Filetype -- Sahas -- Copied from: https://github.com/kevinhwang91/nvim-ufo/blob/553d8a9c611caa9f020556d4a26b760698e5b81b/doc/example.lua#L4
-        local ftMap = {
-            vim = 'indent',
-            python = { 'indent' },
-            git = '',
-        }
-
-        local fold_by_ft_handler = function(bufnr, filetype, buftype)
-            return ftMap[filetype]
-        end
-        opts['provider_selector'] = fold_by_ft_handler
+        -- local ftMap = {
+        --     vim = 'indent',
+        --     -- python = { 'indent' },
+        --     git = '',
+        -- }
+        --
+        -- local fold_by_ft_handler = function(bufnr, filetype, buftype)
+        --     return ftMap[filetype]
+        -- end
+        -- opts['provider_selector'] = fold_by_ft_handler
 
         -- Make YAML LS work maybe? This works but I think this is better: https://github.com/redhat-developer/yaml-language-server/issues/912#issuecomment-1984586934
         -- local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -96,12 +97,6 @@ return {
         vim.keymap.set('n', 'zR', require('ufo').openAllFolds, { desc = 'UFO: Open all folds' })
         vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = 'UFO: Close all folds' })
         vim.keymap.set('n', 'zr', require('ufo').openFoldsExceptKinds, { desc = 'UFO: Open all folds except kinds' })
-        vim.keymap.set('n', 'K', function()
-            local winid = require('ufo').peekFoldedLinesUnderCursor()
-            if not winid then
-                vim.lsp.buf.hover()
-                -- vim.cmd [[ Lspsaga hover_doc ]]
-            end
-        end)
+        vim.keymap.set('n', 'zk', require('ufo').peekFoldedLinesUnderCursor, { desc = 'UFO: Peek under fold.' })
     end,
 }

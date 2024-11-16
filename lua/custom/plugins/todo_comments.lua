@@ -15,7 +15,7 @@ return {
             desc = 'Next TODO comment',
         },
         {
-            ']t',
+            '[t',
             function()
                 require('todo-comments').jump_prev()
             end,

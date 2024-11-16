@@ -66,12 +66,14 @@ vim.opt.rtp:prepend(lazypath)
 --
 --  You can also configure plugins after the setup call,
 --    as they will be available in your neovim runtime.
+
+vim.go.loadplugins = true
 require('lazy').setup({
     -- NOTE: First, some plugins that don't require any configuration
 
     -- Git related plugins
-    'tpope/vim-fugitive',
-    'tpope/vim-rhubarb',
+    -- 'tpope/vim-fugitive',
+    -- 'tpope/vim-rhubarb',
 
     -- Detect tabstop and shiftwidth automatically
     'tpope/vim-sleuth',
@@ -81,6 +83,7 @@ require('lazy').setup({
     {
         -- LSP Configuration & Plugins
         'neovim/nvim-lspconfig',
+        event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
         dependencies = {
             -- Automatically install LSPs to stdpath for neovim
             { 'williamboman/mason.nvim', config = true },
@@ -88,10 +91,10 @@ require('lazy').setup({
 
             -- Useful status updates for LSP
             -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-            { 'j-hui/fidget.nvim',       opts = {} },
+            { 'j-hui/fidget.nvim', opts = {} },
 
             -- Additional lua configuration, makes nvim stuff amazing!
-            'folke/neodev.nvim',
+            -- 'folke/neodev.nvim',
         },
         opts = {
             inlay_hints = { enabled = true },
@@ -101,6 +104,7 @@ require('lazy').setup({
     {
         -- Autocompletion
         'hrsh7th/nvim-cmp',
+        -- event = 'InsertEnter',
         dependencies = {
             -- Snippet Engine & its associated nvim-cmp source
             'L3MON4D3/LuaSnip',
@@ -128,12 +132,39 @@ require('lazy').setup({
             'onsails/lspkind.nvim',
         },
     },
-
+    {
+        'L3MON4D3/LuaSnip',
+        -- install jsregexp (optional!).
+        build = 'make install_jsregexp',
+        lazy = true,
+    },
     -- Useful plugin to show you pending keybinds.
-    { 'folke/which-key.nvim',  opts = {} },
+    {
+        'folke/which-key.nvim',
+        event = 'VeryLazy',
+        opts = {
+            layout = {
+                width = { min = 1 },
+                spacing = 1,
+            },
+            keys = {
+                -- These only work if the '<C' part is lowercase
+                -- i.e. <c-n> and <c-p>
+                scroll_down = '<c-n>',
+                scroll_up = '<c-p>',
+            },
+            icons = {
+                keys = {
+                    C = 'C-',
+                    M = 'M-',
+                },
+            },
+        },
+    },
     {
         -- Adds git related signs to the gutter, as well as utilities for managing changes
         'lewis6991/gitsigns.nvim',
+        event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
         opts = {
             -- See `:help gitsigns.txt`
             signs = {
@@ -213,7 +244,11 @@ require('lazy').setup({
         lazy = false,
         priority = 1000,
         config = function()
+            vim.g.moonflyCursorColor = true
             vim.g.moonflyVirtualTextColor = true
+            vim.g.moonflyNormalFloat = true
+            vim.opt.fillchars = { horiz = '━', horizup = '┻', horizdown = '┳', vert = '┃', vertleft = '┫', vertright = '┣', verthoriz = '╋' }
+            vim.g.moonflyWinSeparator = 2
             vim.cmd.colorscheme 'moonfly'
         end,
     },
@@ -221,13 +256,49 @@ require('lazy').setup({
     {
         -- Set lualine as statusline
         'nvim-lualine/lualine.nvim',
+        event = 'VeryLazy',
+        init = function()
+            vim.g.lualine_laststatus = vim.o.laststatus
+            if vim.fn.argc(-1) > 0 then
+                -- set an empty statusline till lualine loads
+                vim.o.statusline = ' '
+            else
+                -- hide the statusline on the starter page
+                vim.o.laststatus = 0
+            end
+        end,
         -- See `:help lualine.txt`
         opts = {
             options = {
                 icons_enabled = true,
                 theme = 'auto',
                 component_separators = '|',
-                section_separators = '',
+                -- section_separators = '',
+            },
+            sections = {
+                lualine_b = {
+                    function()
+                        return ' ' .. os.date '%c'
+                    end,
+                    'branch',
+                    'diff',
+                    'diagnostics',
+                },
+                lualine_c = {
+                    'filename',
+                    {
+                        function()
+                            return require('noice').api.status.mode.get()
+                        end,
+                        cond = function()
+                            return package.loaded['noice'] and require('noice').api.status.mode.has()
+                        end,
+                        -- FG: MoonflyOrange, BG = Moondly Lua line standard BG.
+                        color = { fg = '#de935f', bg = '#303030' },
+                    },
+                },
+                lualine_y = { 'encoding', 'filetype' },
+                lualine_z = { 'searchcount', 'selectioncount', 'location' },
             },
         },
     },
@@ -235,41 +306,32 @@ require('lazy').setup({
     {
         -- Add indentation guides even on blank lines
         'lukas-reineke/indent-blankline.nvim',
+        event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },
         -- Enable `lukas-reineke/indent-blankline.nvim`
-        -- See `:help ibl`
-        -- main = 'ibl',
-        -- opts = {},
-        config = function()
-            local highlight = {
-                'RainbowRed',
-                'RainbowYellow',
-                'RainbowBlue',
-                'RainbowOrange',
-                'RainbowGreen',
-                'RainbowViolet',
-                'RainbowCyan',
-            }
+        --- @type ibl.config
+        opts = {
+            -- indent = {
+            scope = {
+                highlight = {
+                    'MoonflyRed',
+                    'MoonflyYellow',
+                    'MoonflyBlue',
+                    'MoonflyOrange',
+                    'MoonflyGreen',
+                    'MoonflyViolet',
+                    'MoonflyTurquoise',
+                },
+            },
+        },
+        config = function(_, opts)
+            require('ibl').setup(opts)
             local hooks = require 'ibl.hooks'
-            -- create the highlight groups in the highlight setup hook, so they are reset
-            -- every time the colorscheme changes
-            hooks.register(hooks.type.HIGHLIGHT_SETUP, function()
-                vim.api.nvim_set_hl(0, 'RainbowRed', { fg = '#E06C75' })
-                vim.api.nvim_set_hl(0, 'RainbowYellow', { fg = '#E5C07B' })
-                vim.api.nvim_set_hl(0, 'RainbowBlue', { fg = '#61AFEF' })
-                vim.api.nvim_set_hl(0, 'RainbowOrange', { fg = '#D19A66' })
-                vim.api.nvim_set_hl(0, 'RainbowGreen', { fg = '#98C379' })
-                vim.api.nvim_set_hl(0, 'RainbowViolet', { fg = '#C678DD' })
-                vim.api.nvim_set_hl(0, 'RainbowCyan', { fg = '#56B6C2' })
-            end)
-            vim.g.rainbow_delimiters = { highlight = highlight }
-            require('ibl').setup { scope = { highlight = highlight } }
-
             hooks.register(hooks.type.SCOPE_HIGHLIGHT, hooks.builtin.scope_highlight_from_extmark)
         end,
     },
 
     -- "gc" to comment visual regions/lines
-    { 'numToStr/Comment.nvim', opts = {} },
+    { 'numToStr/Comment.nvim', opts = {}, lazy = true },
 
     -- Fuzzy Finder (files, lsp, etc)
     {
@@ -296,9 +358,13 @@ require('lazy').setup({
         -- Highlight, edit, and navigate code
         'nvim-treesitter/nvim-treesitter',
         dependencies = {
-            'nvim-treesitter/nvim-treesitter-textobjects',
+            { 'nvim-treesitter/nvim-treesitter-textobjects', event = 'VeryLazy' },
+            'nvim-treesitter/nvim-treesitter-context',
+            'windwp/nvim-ts-autotag',
         },
         build = ':TSUpdate',
+        lazy = vim.fn.argc(-1) == 0,
+        event = { 'BufReadPost', 'BufNewFile', 'VeryLazy' },
     },
 
     -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
@@ -376,6 +442,7 @@ vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = tr
 vim.diagnostic.config {
     float = {
         source = 'always',
+        border = 'single',
     },
 }
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
@@ -405,10 +472,27 @@ require('telescope').setup {
             },
         },
     },
+    extensions = {
+        fzf = {
+            fuzzy = true, -- false will only do exact matching
+            override_generic_sorter = true, -- override the generic sorter
+            override_file_sorter = true, -- override the file sorter
+            case_mode = 'smart_case', -- or "ignore_case" or "respect_case" the default case_mode is "smart_case"
+        },
+    },
 }
 
 -- Enable telescope fzf native, if installed
 pcall(require('telescope').load_extension, 'fzf')
+
+-- Enable telescope for nvim Notify
+pcall(require('telescope').load_extension, 'notify')
+
+-- Enable telescope for Refactoring.
+pcall(require('telescope').load_extension, 'refactoring')
+
+-- Enable telescope for Code Annotation
+-- pcall(require('telescope').load_extension, 'code_annotate')
 
 -- Telescope live_grep in git root
 -- Function to find the git root directory based on the current buffer's path
@@ -487,10 +571,10 @@ vim.defer_fn(function()
         -- Install languages synchronously (only applied to `ensure_installed`)
         sync_install = false,
         -- List of parsers to ignore installing
-        ignore_install = {},
+        ignore_install = { 'latex' },
         -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
         modules = {},
-        highlight = { enable = true, disable = { 'latex' } },
+        highlight = { enable = true, disable = { 'latex' }, additional_vim_regex_highlighting = { 'latex', 'markdown' } },
         indent = { enable = true },
         incremental_selection = {
             enable = true,
@@ -513,26 +597,64 @@ vim.defer_fn(function()
                     ['if'] = '@function.inner',
                     ['ac'] = '@class.outer',
                     ['ic'] = '@class.inner',
+                    ['as'] = { query = '@local.scope.outer', query_group = 'locals' },
+                    ['is'] = { query = '@local.scope.inner', query_group = 'locals' },
+                    ['al'] = '@loop.outer',
+                    ['il'] = '@loop.inner',
+                    ['an'] = '@call.outer',
+                    ['in'] = '@call.inner',
+                    ['a='] = '@assignment.outer',
+                    ['i='] = '@assignment.inner',
+                    ['l='] = '@assignment.lhs',
+                    ['r='] = '@assignment.rhs',
+                    ['ao'] = '@comment.outer',
+                    ['io'] = '@comment.inner',
+                    ['ad'] = '@condition.outer',
+                    ['id'] = '@condition.inner',
                 },
             },
             move = {
                 enable = true,
                 set_jumps = true, -- whether to set jumps in the jumplist
                 goto_next_start = {
-                    [']m'] = '@function.outer',
-                    [']]'] = '@class.outer',
+                    [']]'] = '@function.outer',
+                    [']m'] = '@class.outer',
+                    [']n'] = '@conditional.outer',
+                    [']a'] = '@assignment.outer',
+                    [']l'] = '@loop.outer',
+                    [']p'] = '@parameter.outer',
+                    [']o'] = '@comment.outer',
+                    -- [']n'] = '@call.outer',
                 },
                 goto_next_end = {
-                    [']M'] = '@function.outer',
-                    [']['] = '@class.outer',
+                    [']['] = '@function.outer',
+                    [']M'] = '@class.outer',
+                    [']N'] = '@conditional.outer',
+                    [']A'] = '@assignment.outer',
+                    [']L'] = '@loop.outer',
+                    [']P'] = '@parameter.outer',
+                    [']O'] = '@comment.outer',
+                    -- [']N'] = '@call.outer',
                 },
                 goto_previous_start = {
-                    ['[m'] = '@function.outer',
-                    ['[['] = '@class.outer',
+                    ['[['] = '@function.outer',
+                    ['[m'] = '@class.outer',
+                    ['[n'] = '@conditional.outer',
+                    ['[a'] = '@assignment.outer',
+                    ['[l'] = '@loop.outer',
+                    ['[p'] = '@parameter.outer',
+                    ['[o'] = '@comment.outer',
+                    -- ['[n'] = '@call.outer',
                 },
                 goto_previous_end = {
-                    ['[M'] = '@function.outer',
-                    ['[]'] = '@class.outer',
+                    ['[]'] = '@function.outer',
+                    ['[M'] = '@class.outer',
+                    ['[N'] = '@conditional.outer',
+                    ['[A'] = '@assignment.outer',
+                    ['[L'] = '@loop.outer',
+                    ['[P'] = '@parameter.outer',
+                    ['[O'] = '@comment.outer',
+                    -- ['[N'] = '@call.outer',
                 },
             },
             swap = {
@@ -542,6 +664,15 @@ vim.defer_fn(function()
                 },
                 swap_previous = {
                     ['<leader>A'] = '@parameter.inner',
+                },
+            },
+            lsp_interop = {
+                enable = true,
+                border = 'none',
+                floating_preview_opts = {},
+                peek_definition_code = {
+                    ['<leader>pf'] = '@function.outer',
+                    ['<leader>pc'] = '@class.outer',
                 },
             },
         },
@@ -556,7 +687,7 @@ end, 0)
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local on_attach = function(tbl, bufnr)
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don't have to repeat yourself
     -- many times.
@@ -600,28 +731,56 @@ local on_attach = function(_, bufnr)
         vim.lsp.buf.format()
     end, { desc = 'Format current buffer with LSP' })
 
-    -- Clangd Inlay Hints
-    require('clangd_extensions.inlay_hints').setup_autocmd()
-    require('clangd_extensions.inlay_hints').set_inlay_hints()
+    -- The following two autocommands are used to highlight references of the
+    -- word under your cursor when your cursor rests there for a little while.
+    --    See `:help CursorHold` for information about when this is executed
+    --
+    -- When you move your cursor, the highlights will be cleared (the second autocommand).
+    local client = vim.lsp.get_client_by_id(tbl.id)
+    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+        local highlight_augroup = vim.api.nvim_create_augroup('kickstart-lsp-highlight', { clear = false })
+        vim.api.nvim_create_autocmd({ 'CursorHold', 'CursorHoldI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.document_highlight,
+        })
+
+        vim.api.nvim_create_autocmd({ 'CursorMoved', 'CursorMovedI' }, {
+            buffer = bufnr,
+            group = highlight_augroup,
+            callback = vim.lsp.buf.clear_references,
+        })
+
+        vim.api.nvim_create_autocmd('LspDetach', {
+            group = vim.api.nvim_create_augroup('kickstart-lsp-detach', { clear = true }),
+            callback = function(event2)
+                vim.lsp.buf.clear_references()
+                vim.api.nvim_clear_autocmds { group = 'kickstart-lsp-highlight', buffer = event2.buf }
+            end,
+        })
+    end
+
+    -- The following code creates a keymap to toggle inlay hints in your
+    -- code, if the language server you are using supports them
+    --
+    -- This may be unwanted, since they displace some of your code
+    if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+        nmap('<leader>th', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled { bufnr = bufnr })
+        end, '[T]oggle Inlay [H]ints')
+    end
 end
 
 -- document existing key chains
-require('which-key').register {
-    ['<leader>c'] = { name = '[C]ode', _ = 'which_key_ignore' },
-    ['<leader>d'] = { name = '[D]ocument', _ = 'which_key_ignore' },
-    ['<leader>g'] = { name = '[G]it', _ = 'which_key_ignore' },
-    ['<leader>h'] = { name = 'Git [H]unk', _ = 'which_key_ignore' },
-    ['<leader>r'] = { name = '[R]ename', _ = 'which_key_ignore' },
-    ['<leader>s'] = { name = '[S]earch', _ = 'which_key_ignore' },
-    ['<leader>t'] = { name = '[T]oggle', _ = 'which_key_ignore' },
-    ['<leader>w'] = { name = '[W]orkspace', _ = 'which_key_ignore' },
+require('which-key').add {
+    { '<leader>c', group = '[C]ode' },
+    { '<leader>d', group = '[D]ocument' },
+    { '<leader>r', group = '[R]ename/[R]efactor' },
+    { '<leader>s', group = '[S]earch' },
+    { '<leader>w', group = '[W]orkspace' },
+    { '<leader>t', group = '[T]oggle' },
+    { '<leader>h', group = 'Git [H]unk', mode = { 'n', 'v' } },
 }
--- register which-key VISUAL mode
--- required for visual <leader>hs (hunk stage) to work
-require('which-key').register({
-    ['<leader>'] = { name = 'VISUAL <leader>' },
-    ['<leader>h'] = { 'Git [H]unk' },
-}, { mode = 'v' })
 
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
@@ -643,10 +802,22 @@ local servers = {
     -- rust_analyzer = {},
     -- tsserver = {},
     -- html = { filetypes = { 'html', 'twig', 'hbs'} },
-
+    basedpyright = {
+        disableOrganizeImports = true,
+        analysis = {
+            -- ignore = { '*' },
+            -- useLibraryCodeForTypes = true,
+            -- typeCheckingMode = 'standard',
+            diagnosticMode = 'workspace',
+            autoImportCompletions = true,
+        },
+    },
     lua_ls = {
         Lua = {
-            workspace = { checkThirdParty = false },
+            workspace = {
+                checkThirdParty = false,
+                -- library = vim.api.nvim_get_runtime_file('lua', true),
+            },
             telemetry = { enable = false },
             -- NOTE: toggle below to ignore Lua_LS's noisy `missing-fields` warnings
             diagnostics = { disable = { 'missing-fields' } },
@@ -655,7 +826,7 @@ local servers = {
 }
 
 -- Setup neovim lua configuration
-require('neodev').setup()
+-- require('neodev').setup()
 
 -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -705,20 +876,30 @@ require('lspconfig').clangd.setup {
 
 -- GitHub Copilot Lua setup.
 
-local has_words_before = function()
+--[[ local has_words_before = function()
     if vim.api.nvim_buf_get_option(0, 'buftype') == 'prompt' then
         return false
     end
     local line, col = unpack(vim.api.nvim_win_get_cursor(0))
     return col ~= 0 and vim.api.nvim_buf_get_text(0, line - 1, 0, line - 1, col, {})[1]:match '^%s*$' == nil
-end
+end ]]
 
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 local lspkind = require 'lspkind'
 require('luasnip.loaders.from_vscode').lazy_load()
-luasnip.config.setup {}
+luasnip.config.setup {
+    keep_roots = true,
+    link_roots = true,
+    link_children = true,
+    exit_roots = false,
+    update_events = { 'TextChanged', 'TextChangedI' },
+    enable_autosnippets = true,
+}
 
+local winhighlight = {
+    winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel',
+}
 cmp.setup {
     view = {
         entries = {
@@ -739,7 +920,8 @@ cmp.setup {
         completeopt = 'menu,menuone,noinsert',
     },
     window = {
-        documentation = cmp.config.window.bordered(),
+        completion = cmp.config.window.bordered(winhighlight),
+        documentation = cmp.config.window.bordered(winhighlight),
     },
     sorting = {
         comparators = {
@@ -755,6 +937,8 @@ cmp.setup {
             cmp.config.compare.order,
         },
     },
+    -- TODO: Change tab to ctrl-l or something and move the vim schedule_wrap stuff to ctrl-n where it belongs.
+    -- See kickstart.nvim -> https://github.com/nvim-lua/kickstart.nvim/blob/186018483039b20dc39d7991e4fb28090dd4750e/init.lua#L723C9-L723C16
     mapping = cmp.mapping.preset.insert {
         ['<C-n>'] = cmp.mapping.select_next_item(),
         ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -765,7 +949,17 @@ cmp.setup {
             behavior = cmp.ConfirmBehavior.Replace,
             select = false,
         },
-        ['<Tab>'] = vim.schedule_wrap(function(fallback)
+        ['<C-k>'] = cmp.mapping(function()
+            if luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            end
+        end, { 'i', 's' }),
+        ['<C-j>'] = cmp.mapping(function()
+            if luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            end
+        end, { 'i', 's' }),
+        --[[ ['<Tab>'] = vim.schedule_wrap(function(fallback)
             if cmp.visible() and has_words_before() then
                 cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
             elseif luasnip.expand_or_locally_jumpable() then
@@ -783,33 +977,35 @@ cmp.setup {
                 fallback()
             end
         end),
-        -- ['<Tab>'] = cmp.mapping(function(fallback)
-        --   if cmp.visible() then
-        --     cmp.select_next_item()
-        --   elseif luasnip.expand_or_locally_jumpable() then
-        --     luasnip.expand_or_jump()
-        --   else
-        --     fallback()
-        --   end
-        -- end, { 'i', 's' }),
-        -- ['<S-Tab>'] = cmp.mapping(function(fallback)
-        --   if cmp.visible() then
-        --     cmp.select_prev_item()
-        --   elseif luasnip.locally_jumpable(-1) then
-        --     luasnip.jump(-1)
-        --   else
-        --     fallback()
-        --   end
-        -- end, { 'i', 's' }),
+        ['<Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif luasnip.locally_jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { 'i', 's' }), ]]
     },
     sources = {
-        { name = 'nvim_lsp' },
+        -- set group index to 0 to skip loading LuaLS completions as lazydev recommends it
+        { name = 'lazydev', group_index = 0 },
         { name = 'vimtex' },
+        { name = 'nvim_lsp' },
         -- { name = 'omni' },
         { name = 'luasnip' },
+        { name = 'path' },
         { name = 'buffer' },
         { name = 'copilot' },
-        { name = 'path' },
         { name = 'emoji' },
     },
 }
@@ -826,10 +1022,10 @@ cmp.setup.cmdline('/', {
 cmp.setup.cmdline(':', {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
+        { name = 'cmdline' },
+    }, {
         { name = 'path' },
         { name = 'buffer', keyword_length = 2 },
-    }, {
-        { name = 'cmdline' },
     }),
     matching = { disallow_symbol_nonprefix_matching = false },
 })

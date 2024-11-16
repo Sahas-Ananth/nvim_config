@@ -1,3 +1,3 @@
 -- Git conflict Resolution
 
-return {'akinsho/git-conflict.nvim', version = "*", config = true}
+return { 'akinsho/git-conflict.nvim', lazy = true, version = '*', config = true }

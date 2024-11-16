@@ -1,7 +1,10 @@
 -- Nvim Notify for better notifications.
 
+--- @type LazyPlugin
 return {
     'rcarriga/nvim-notify',
+    enabled = true,
+    event = 'VeryLazy',
     opts = {
         time_formats = {
             notification = '%c',

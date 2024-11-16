@@ -28,16 +28,29 @@ vim.opt.signcolumn = 'yes'
 -- Tbh I don't know what this does, but it's in thePrimeagen's config. :shrug:
 vim.opt.isfname:append '@-@'
 
-vim.opt.colorcolumn = '120'
+vim.opt.colorcolumn = { 88, 120 }
 -- vim.opt.textwidth = 120
 
 -- chris@machine's config.
-vim.opt.showtabline = 2    -- always show tabs
-vim.opt.smartcase = true   -- smart case
+vim.opt.showtabline = 2 -- always show tabs
+vim.opt.smartcase = true -- smart case
 vim.opt.smartindent = true -- make indenting smarter again
-vim.opt.splitbelow = true  -- force all horizontal splits to go below current window
-vim.opt.splitright = true  -- force all vertical splits to go to the right of current window
+vim.opt.splitbelow = true -- force all horizontal splits to go below current window
+vim.opt.splitright = true -- force all vertical splits to go to the right of current window
 
 vim.opt.showmode = false
+
+P = function(v)
+    vim.print(v)
+end
+
+RELOAD = function(name)
+    return require('plenary.reload').reload_module(name)
+end
+
+R = function(name)
+    RELOAD(name)
+    return require(name).setup()
+end
 
 return {}

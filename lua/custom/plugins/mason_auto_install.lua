@@ -4,6 +4,7 @@
 
 return {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    lazy = true,
     dependencies = {
         'williamboman/mason.nvim',
     },
@@ -19,7 +20,7 @@ return {
             'markdown-toc',
             'marksman',
             'mdformat',
-            'mypy',
+            -- 'mypy',
             'stylua',
             'ruff',
         },
