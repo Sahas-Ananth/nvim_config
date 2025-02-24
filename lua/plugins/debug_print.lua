@@ -20,6 +20,14 @@ return {
                 variable_above = '<leader>dV',
             },
         },
+        filetypes = {
+            ['cuda'] = {
+                left = 'std::cerr << "',
+                right = '" << std::endl;',
+                mid_var = '" << ',
+                right_var = ' << std::endl;',
+            },
+        },
     },
     lazy = true,
     version = '*',
