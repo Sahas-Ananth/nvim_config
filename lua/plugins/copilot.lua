@@ -2,12 +2,11 @@
 return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
-    -- event = 'InsertEnter',
-    dependencies = { 'zbirenbaum/copilot-cmp' },
+    dependencies = { 'zbirenbaum/copilot-cmp', config = true },
     build = ':Copilot auth',
     keys = {
         {
-            '<leader>tc',
+            '<leader>Tc',
             function()
                 if require('copilot.client').is_disabled() then
                     require('copilot.command').enable()
@@ -21,10 +20,9 @@ return {
     opts = {
         suggestion = { enabled = false },
         panel = { enabled = false },
-        filetypes = { yaml = true, markdown = true, gitcommit = true, gitrebase = true },
     },
-    -- config = function()
-    --     vim.cmd 'silent! Copilot disable'
-    --     vim.api.nvim_set_hl(0, 'CmpItemKindCopilot', { fg = '#6CC644' })
-    -- end,
+    config = function(_, opts)
+        require('copilot').setup(opts)
+        require('copilot.command').disable()
+    end,
 }
