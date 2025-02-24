@@ -35,8 +35,9 @@ local routes = {
     { filter = { find = 'coding standard is not installed' }, view = 'mini' },
 
     -- Copilot
-    { filter = { find = '%[Copilot%] Offline', event = 'msg_show' }, skip = true },
+    { filter = { find = '%[Copilot%] Offline', event = 'msg_show' }, view = 'mini' },
     { filter = { find = 'Hunk %d+ of %d+', event = 'msg_show' }, skip = true },
+    { filter = { find = 'No information available', event = 'notify' }, skip = true },
 
     -- :make
     -- { filter = { event = 'msg_show', find = '^:!make' }, skip = true },
@@ -73,15 +74,15 @@ local routes = {
 
     -- Mason
     { filter = { event = 'notify', find = '%[mason%-tool%-installer%]' }, view = 'mini' },
-    {
-        filter = {
-            event = 'notify',
-            cond = function(msg)
-                return msg.opts and msg.opts.title and msg.opts.title:find 'mason.*.nvim'
-            end,
-        },
-        view = 'mini',
-    },
+    -- {
+    --     filter = {
+    --         event = 'notify',
+    --         cond = function(msg)
+    --             return msg.opts and msg.opts.title and msg.opts.title:find 'mason.*.nvim'
+    --         end,
+    --     },
+    --     view = 'mini',
+    -- },
 }
 
 --- @type LazySpec
@@ -89,6 +90,7 @@ return {
     'folke/noice.nvim',
     event = 'VeryLazy',
     enabled = true,
+    lazy = false,
     opts = {
         -- add any options here
         lsp = {
@@ -116,5 +118,29 @@ return {
         --   If not available, we use `mini` as the fallback
         -- 'rcarriga/nvim-notify',
         -- 'hrsh7th/nvim-cmp',
+    },
+    keys = {
+        {
+            '<C-f>',
+            function()
+                if not require('noice.lsp').scroll(4) then
+                    return '<C-f>'
+                end
+            end,
+            mode = { 'n', 'i', 's' },
+            silent = true,
+            expr = true,
+        },
+        {
+            '<C-b>',
+            function()
+                if not require('noice.lsp').scroll(-4) then
+                    return '<C-b>'
+                end
+            end,
+            mode = { 'n', 'i', 's' },
+            silent = true,
+            expr = true,
+        },
     },
 }
