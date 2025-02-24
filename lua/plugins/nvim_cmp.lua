@@ -5,62 +5,33 @@
 return {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },
+    enabled = true,
     dependencies = {
         -- Snippet Engine & its associated nvim-cmp source
-        --- @type LazyPlugin
-        {
-            'L3MON4D3/LuaSnip',
-            build = (function()
-                -- Build Step is needed for regex support in snippets.
-                -- This step is not supported in many windows environments.
-                -- Remove the below condition to re-enable on windows.
-                if vim.fn.has 'win32' == 1 or vim.fn.executable 'make' == 0 then
-                    return
-                end
-                return 'make install_jsregexp'
-            end)(),
-            dependencies = {
-                -- Adds a number of user-friendly snippets
-                'rafamadriz/friendly-snippets',
-                lazy = true,
-                config = function()
-                    require('luasnip.loaders.from_vscode').lazy_load()
-                end,
-            },
-            opts = {
-                keep_roots = true,
-                link_roots = true,
-                link_children = true,
-                exit_roots = false,
-                update_events = { 'TextChanged', 'TextChangedI' },
-                enable_autosnippets = true,
-            },
-        },
+        'L3MON4D3/LuaSnip',
         { 'saadparwaiz1/cmp_luasnip', lazy = true },
 
         -- Adds LSP completion capabilities
-        { 'hrsh7th/cmp-nvim-lsp', lazy = true },
-        { 'hrsh7th/cmp-path', lazy = true },
+        { 'hrsh7th/cmp-nvim-lsp', lazy = true, config = true },
 
         -- Additional Cmp sources
+        { 'micangl/cmp-vimtex', lazy = true, config = true },
         { 'hrsh7th/cmp-path', lazy = true },
         { 'hrsh7th/cmp-buffer', lazy = true },
         { 'hrsh7th/cmp-cmdline', lazy = true },
 
         -- LSP Kind Icons (Nicer icons in CMP.)
-        { 'onsails/lspkind.nvim', lazy = true },
-
-        -- Autopair plugin.
-        -- Repo: https://github.com/windwp/nvim-autopairs
-        {
-            'windwp/nvim-autopairs',
-            event = 'InsertEnter',
-            config = true,
-        },
+        { 'onsails/lspkind.nvim', lazy = true, config = true },
+        'windwp/nvim-autopairs',
+        'zbirenbaum/copilot.lua',
     },
     opts = function()
         local cmp = require 'cmp'
         local luasnip = require 'luasnip'
+
+        local winhighlight = {
+            winhighlight = 'Normal:NormalFloat,FloatBorder:FloatBorder,CursorLine:PmenuSel',
+        }
 
         return {
             view = {
@@ -71,6 +42,8 @@ return {
             formatting = {
                 format = require('lspkind').cmp_format {
                     symbol_map = { Copilot = '' },
+                    maxwidth = 30,
+                    show_labelDetails = true,
                 },
             },
             snippet = {
@@ -79,6 +52,34 @@ return {
                 end,
             },
             completion = { completeopt = 'menu,menuone,noinsert' },
+            window = {
+                completion = cmp.config.window.bordered(winhighlight),
+                documentation = cmp.config.window.bordered(winhighlight),
+            },
+            sorting = {
+                comparators = {
+                    cmp.config.compare.offset,
+                    cmp.config.compare.exact,
+                    cmp.config.compare.score,
+                    -- Copied from TJ who copied from cmp-under. better sorting for stuff that starts with __.
+                    function(entry1, entry2)
+                        local _, entry1_under = entry1.completion_item.label:find '^_+'
+                        local _, entry2_under = entry2.completion_item.label:find '^_+'
+                        entry1_under = entry1_under or 0
+                        entry2_under = entry2_under or 0
+                        if entry1_under > entry2_under then
+                            return false
+                        elseif entry1_under < entry2_under then
+                            return true
+                        end
+                    end,
+                    cmp.config.compare.kind,
+                    cmp.config.compare.sort_text,
+                    cmp.config.compare.length,
+                    cmp.config.compare.order,
+                },
+            },
+
             mapping = cmp.mapping.preset.insert {
                 ['<C-n>'] = cmp.mapping.select_next_item(),
                 ['<C-p>'] = cmp.mapping.select_prev_item(),
@@ -106,9 +107,9 @@ return {
                 { name = 'vimtex' },
                 { name = 'nvim_lsp' },
                 { name = 'luasnip' },
-                { name = 'path' },
                 { name = 'buffer' },
                 { name = 'copilot' },
+                { name = 'path' },
             },
         }
     end,
