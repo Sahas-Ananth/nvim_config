@@ -67,6 +67,23 @@ vim.keymap.set('n', 'd', [["_d]], {
     silent = true, --[[{ desc = 'Delete to Black Hole register.' }]]
 })
 
+-- Remap signature help to M-k as C-k is taken by kitty and nvim window nav.
+vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, { silent = true, nowait = true, noremap = true })
+
+-- Better window Navigation
+vim.keymap.set('n', '<M-s>', '<C-w>s', { nowait = true, noremap = true, silent = true, desc = 'HSplit window.' })
+vim.keymap.set('n', '<M-v>', '<C-w>v', { nowait = true, noremap = true, silent = true, desc = 'VSplit window.' })
+vim.keymap.set('n', '<M-q>', '<C-w>q', { nowait = true, noremap = true, silent = true, desc = 'Quit a window.' })
+vim.keymap.set('n', '<M-x>', '<C-w>x', { nowait = true, noremap = true, silent = true, desc = 'Swap windows.' })
+vim.keymap.set('n', '<M-o>', '<C-w>o', { nowait = true, noremap = true, silent = true, desc = 'Close all windows except current.' })
+
+-- Better buffer Navigation
+-- vim.keymap.set('n', '<M-c>', '<cmd>bd<cr>', { noremap = true, silent = true, nowait = true, desc = 'Delete Buffer.' })
+-- vim.keymap.set('n', '<M-C>', '<cmd>bd!<cr>', { noremap = true, silent = true, nowait = true, desc = 'Delete Buffer without saving.' })
+vim.keymap.set('n', '<M-p>', '<cmd>bp<cr>', { noremap = true, silent = true, nowait = true, desc = 'Previous Buffer.' })
+vim.keymap.set('n', '<M-n>', '<cmd>bn<cr>', { noremap = true, silent = true, nowait = true, desc = 'Next Buffer.' })
+vim.keymap.set('n', '<M-N>', '<cmd>enew<cr>', { nowait = true, noremap = true, silent = true, desc = 'New file.' })
+
 -- Make current file executable.
 vim.keymap.set('n', '<leader><leader>x', '<cmd>!chmod +x %<CR>', { silent = true, desc = 'Make current file executable.' })
 
@@ -75,6 +92,3 @@ vim.keymap.set('n', '<C-Up>', ':resize -2<CR>', { noremap = true, silent = true,
 vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', { noremap = true, silent = true, desc = 'Resize: Down.' })
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', { noremap = true, silent = true, desc = 'Resize: Left.' })
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', { noremap = true, silent = true, desc = 'Resize: Right.' })
-
--- Keymap to source and run this current lua file
-vim.keymap.set('n', '<leader>fr', '<cmd>w<cr><cmd>source %<cr>', { noremap = true, silent = true, desc = 'Source and run this file.' })
