@@ -11,6 +11,7 @@ function _G.get_oil_winbar()
     end
 end
 
+--- @type LazySpec
 return {
     'stevearc/oil.nvim',
     lazy = false,
@@ -18,6 +19,7 @@ return {
         default_file_explorer = true,
         delete_to_trash = true,
         skip_confirm_for_simple_edits = true,
+        prompt_save_on_new_entry = false,
         watch_for_changes = true,
         buf_options = {
             buflisted = false,

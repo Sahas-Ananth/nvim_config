@@ -1,4 +1,5 @@
 -- Plugin to view Markdown Files
+--- @type LazySpec
 return {
     'iamcco/markdown-preview.nvim',
     ft = { 'markdown' },

@@ -1,6 +1,7 @@
 -- Autocompletion plugin
 -- Repo: https://github.com/hrsh7th/nvim-cmp
 
+--- @type LazySpec
 return {
     'hrsh7th/nvim-cmp',
     event = { 'InsertEnter', 'CmdlineEnter' },

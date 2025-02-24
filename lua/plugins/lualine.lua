@@ -21,16 +21,8 @@ return {
             -- section_separators = '',
         },
         sections = {
-            lualine_b = {
-                function()
-                    return ' ' .. os.date '%c'
-                end,
-                'branch',
-                'diff',
-                'diagnostics',
-            },
-            lualine_c = {
-                'filename',
+            lualine_a = {
+                'mode',
                 {
                     function()
                         return require('noice').api.status.mode.get()
@@ -38,10 +30,22 @@ return {
                     cond = function()
                         return package.loaded['noice'] and require('noice').api.status.mode.has()
                     end,
-                    -- FG: MoonflyOrange, BG = Moondly Lua line standard BG.
+                    -- FG: MoonflyOrange, BG = Moonfly Lua line standard BG.
                     color = { fg = '#de935f', bg = '#303030' },
                 },
             },
+            lualine_b = {
+                -- function()
+                --     return ' ' .. os.date '%c'
+                -- end,
+                'branch',
+                'diff',
+                'diagnostics',
+            },
+            lualine_c = {
+                'buffers',
+            },
+            lualine_x = { 'tabs', 'fileformat', 'filetype' },
             lualine_y = { 'encoding', 'filetype' },
             lualine_z = { 'searchcount', 'selectioncount', 'location' },
         },

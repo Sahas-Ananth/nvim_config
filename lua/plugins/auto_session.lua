@@ -1,9 +1,9 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'rmagatti/auto-session',
     lazy = false,
     init = function()
-        vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions'
+        vim.o.sessionoptions = 'blank,buffers,curdir,folds,help,tabpages,winsize,winpos,terminal,localoptions,resize'
     end,
     ---enables autocomplete for opts
     ---@module "auto-session"
@@ -13,7 +13,7 @@ return {
         -- log_level = 'debug',
         session_lens = {
             -- buftypes_to_ignore = {}, -- list of buffer types what should not be deleted from current session
-            -- load_on_setup = true,
+            load_on_setup = false,
             theme_conf = { border = true },
             previewer = false,
         },
@@ -22,7 +22,7 @@ return {
         {
             '<leader>sS',
             function()
-                require('auto-session.session-lens').search_session()
+                require('auto-session.session-lens').search_session {}
             end,
             desc = 'Telescope Search AutoSession',
         },

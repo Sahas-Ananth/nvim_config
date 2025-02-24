@@ -1,4 +1,4 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'roobert/f-string-toggle.nvim',
     keys = {

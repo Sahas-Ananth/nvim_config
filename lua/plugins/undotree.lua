@@ -1,5 +1,6 @@
 -- Undo Tree Plugin
 
+--- @type LazySpec
 return {
     'mbbill/undotree',
     keys = {

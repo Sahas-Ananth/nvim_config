@@ -1,3 +1,4 @@
+--- @type LazySpec
 return {
     'bluz71/vim-moonfly-colors',
     name = 'moonfly',
@@ -10,5 +11,6 @@ return {
         vim.opt.fillchars = { horiz = '━', horizup = '┻', horizdown = '┳', vert = '┃', vertleft = '┫', vertright = '┣', verthoriz = '╋' }
         vim.g.moonflyWinSeparator = 2
         vim.cmd.colorscheme 'moonfly'
+        vim.g.moonflyNormalFloat = true
     end,
 }

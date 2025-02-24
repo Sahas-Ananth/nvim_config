@@ -1,5 +1,5 @@
 -- A better version of compter.
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'monaqa/dial.nvim',
     keys = {

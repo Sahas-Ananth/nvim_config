@@ -1,4 +1,4 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'ThePrimeagen/harpoon',
     dependencies = { 'nvim-lua/plenary.nvim' },

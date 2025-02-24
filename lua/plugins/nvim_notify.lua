@@ -1,6 +1,6 @@
 -- Nvim Notify for better notifications.
 
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'rcarriga/nvim-notify',
     enabled = true,

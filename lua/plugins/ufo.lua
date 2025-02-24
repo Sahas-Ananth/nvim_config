@@ -1,8 +1,9 @@
 -- Neovim Fold Plugin
+--- @type LazySpec
 return {
     'kevinhwang91/nvim-ufo',
     dependencies = 'kevinhwang91/promise-async',
-    -- event = 'VeryLazy',
+    event = 'VeryLazy',
     event = 'BufRead',
     opts = {
         -- INFO: Uncomment to use treeitter as fold provider, otherwise nvim lsp is used

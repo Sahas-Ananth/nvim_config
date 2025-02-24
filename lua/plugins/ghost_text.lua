@@ -1,6 +1,6 @@
 -- Ghost text plugin for Nvim
 
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'raghur/vim-ghost',
     build = ':GhostInstall',

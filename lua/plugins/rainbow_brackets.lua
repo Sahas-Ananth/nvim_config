@@ -1,4 +1,5 @@
 -- Plugin to have brackets have same color.
+--- @type LazySpec
 return {
     'hiphish/rainbow-delimiters.nvim',
     event = { 'BufReadPost', 'BufWritePost', 'BufNewFile' },

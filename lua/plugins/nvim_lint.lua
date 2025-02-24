@@ -1,5 +1,6 @@
 -- Plugin to do linting.
 
+--- @type LazySpec
 return {
     'mfussenegger/nvim-lint',
     lazy = true,
@@ -7,7 +8,7 @@ return {
     config = function()
         local lint = require 'lint'
         lint.linters_by_ft = {
-            python = { 'ruff' },
+            -- python = { 'mypy' },
             bash = { 'shellcheck' },
             cpp = { 'clangtidy' },
             c = { 'clangtidy' },

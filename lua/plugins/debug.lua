@@ -1,4 +1,4 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     -- NOTE: Yes, you can install new plugins here!
     'mfussenegger/nvim-dap',
@@ -157,7 +157,7 @@ return {
 
         require('nvim-dap-virtual-text').setup()
 
-        requir('mason-nvim-dap').setup {
+        require('mason-nvim-dap').setup {
             -- Makes a best effort to setup the various debuggers with
             -- reasonable debug configurations
             automatic_setup = true,

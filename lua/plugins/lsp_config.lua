@@ -1,4 +1,4 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     -- LSP Configuration & Plugins
     'neovim/nvim-lspconfig',

@@ -1,4 +1,4 @@
---- @type LazyPlugin
+--- @type LazySpec
 return {
     dir = '/home/sahas/Documents/Projects/custom_nvim_plugins/Code_Annotate_nvim',
     name = 'code_annotate',
@@ -7,7 +7,8 @@ return {
         -- 'nvim-lua/plenary.nvim',
         -- 'nvim-telescope/telescope.nvim',
     },
-    event = { 'VeryLazy' },
+    -- event = 'VeryLazy',
+    lazy = true,
     opts = {
         auto_confirm_delete = true,
     },

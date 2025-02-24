@@ -84,7 +84,7 @@ local routes = {
     },
 }
 
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'folke/noice.nvim',
     event = 'VeryLazy',

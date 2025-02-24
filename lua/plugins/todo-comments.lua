@@ -1,5 +1,5 @@
 -- Highlight todo, notes, etc in comments
---- @type LazyPlugin
+--- @type LazySpec
 return {
     'folke/todo-comments.nvim',
     -- dependencies = { 'nvim-lua/plenary.nvim' },

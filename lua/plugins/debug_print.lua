@@ -1,3 +1,4 @@
+--- @type LazySpec
 return {
     'andrewferrier/debugprint.nvim',
     opts = {
