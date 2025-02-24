@@ -89,6 +89,13 @@ return {
         { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = '[S]earch by [G]rep' },
         { '<leader>sd', '<cmd>Telescope diagnostics<cr>', desc = '[S]earch [D]iagnostics' },
         { '<leader>sr', '<cmd>Telescope resume<cr>', desc = '[S]earch [R]esume' },
+        {
+            '<leader>ec',
+            function()
+                require('telescope.builtin').find_files { cwd = vim.fn.stdpath 'config' }
+            end,
+            desc = '[E]dit Config Files',
+        },
     },
     config = function()
         require('telescope').setup {
