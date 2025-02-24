@@ -18,7 +18,7 @@ return {
     },
     opts = {
         formatters_by_ft = {
-            python = { 'isort', 'black' },
+            python = { 'isort', 'black', 'docformatter' },
             bash = { 'beautysh' },
             bib = { 'bibtex-tidy' },
             c = { 'clang_format' },
@@ -45,6 +45,9 @@ return {
             -- cmake_format = {
             --     args = { '--tab-size 2', '--' },
             -- },
+            docformatter = {
+                prepend_args = { '--black' },
+            },
         },
     },
 }
