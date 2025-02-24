@@ -3,7 +3,7 @@
 --- @type LazySpec
 return {
     'rcarriga/nvim-notify',
-    enabled = true,
+    enabled = false,
     event = 'VeryLazy',
     module = false,
     opts = {
