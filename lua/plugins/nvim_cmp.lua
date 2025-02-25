@@ -19,6 +19,7 @@ return {
         { 'hrsh7th/cmp-path', lazy = true },
         { 'hrsh7th/cmp-buffer', lazy = true },
         { 'hrsh7th/cmp-cmdline', lazy = true },
+        { 'hrsh7th/cmp-nvim-lsp-signature-help', lazy = true },
 
         -- LSP Kind Icons (Nicer icons in CMP.)
         { 'onsails/lspkind.nvim', lazy = true, config = true },
@@ -110,6 +111,7 @@ return {
                 { name = 'buffer' },
                 { name = 'copilot' },
                 { name = 'path' },
+                { name = 'nvim_lsp_signature_help' },
             },
         }
     end,
