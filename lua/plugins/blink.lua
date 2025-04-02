@@ -31,7 +31,7 @@ return {
         },
         snippets = { preset = 'luasnip' },
         sources = {
-            default = { 'lazydev', 'lsp', 'path', 'snippets', 'buffer' },
+            default = { 'lazydev', 'lsp', 'snippets', 'path', 'buffer' },
             providers = {
                 lazydev = {
                     name = 'LazyDev',
@@ -71,6 +71,7 @@ return {
             },
         },
         signature = { enabled = true, window = { border = 'single' } },
+        fuzzy = { implementation = 'prefer_rust_with_warning' },
     },
     opts_extend = { 'sources.default' },
 }
