@@ -15,7 +15,7 @@ return {
     dependencies = {
         -- Adds a number of user-friendly snippets
         'rafamadriz/friendly-snippets',
-        lazy = true,
+        lazy = false,
     },
     keys = {
         {
