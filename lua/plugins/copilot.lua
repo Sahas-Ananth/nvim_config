@@ -2,7 +2,7 @@
 return {
     'zbirenbaum/copilot.lua',
     cmd = 'Copilot',
-    dependencies = { 'zbirenbaum/copilot-cmp', config = true },
+    -- dependencies = { 'zbirenbaum/copilot-cmp', config = true },
     build = ':Copilot auth',
     keys = {
         {
