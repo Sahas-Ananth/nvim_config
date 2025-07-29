@@ -182,14 +182,17 @@ return {
             clangd = {
                 cmd = {
                     'clangd',
+                    '--background-index',
                     '--offset-encoding=utf-16',
+                    '--compile-commands-dir=' .. vim.fn.getcwd(),
                     '--clang-tidy',
                     '--all-scopes-completion',
                     '--cross-file-rename',
                     '--completion-style=detailed',
                     '--header-insertion-decorators',
-                    '--header-insertion=iwyu',
+                    '--header-insertion=never',
                     '--pch-storage=memory',
+                    '--query-driver=**',
                 },
             },
             dockerls = {},
@@ -218,7 +221,7 @@ return {
                         },
                         workspace = {
                             checkThirdParty = false,
-                            library = vim.api.nvim_get_runtime_file('lua', true),
+                            -- library = vim.api.nvim_get_runtime_file('lua', true),
                         },
                         telemetry = { enable = false },
 
@@ -227,6 +230,7 @@ return {
                     },
                 },
             },
+            marksman = {},
         }
 
         -- Ensure the servers and tools above are installed
@@ -243,7 +247,7 @@ return {
         vim.list_extend(ensure_installed, {
             'stylua', -- Used to format Lua code
             'black',
-            'clang-format',
+            -- 'clang-format',
             'cmakelint',
             'cmakelang',
             'codelldb',
