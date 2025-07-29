@@ -9,6 +9,11 @@ return {
             library = {
                 -- Load luvit types when the `vim.uv` word is found
                 { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+                -- Load Lazy.nvim stuff
+                'lazy.nvim',
+                'Snacks',
+                { path = '/usr/local/share/awesome/lib' },
+                { path = '~/.config/awesome' },
             },
         },
     },
