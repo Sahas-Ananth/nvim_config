@@ -42,7 +42,8 @@ return {
                 function()
                     require('harpoon').ui:toggle_quick_menu(require('harpoon'):list(), {
                         title_pos = 'center',
-                        ui_max_width = 50,
+                        ui_min_width = 50,
+                        ui_width_ratio = 0.5,
                     })
                 end,
                 desc = 'Harpoon Menu',
