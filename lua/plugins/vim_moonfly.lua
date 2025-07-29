@@ -10,7 +10,7 @@ return {
         vim.g.moonflyNormalFloat = true
         vim.opt.fillchars = { horiz = '━', horizup = '┻', horizdown = '┳', vert = '┃', vertleft = '┫', vertright = '┣', verthoriz = '╋' }
         vim.g.moonflyWinSeparator = 2
-        vim.g.moonflyTransparent = false
+        vim.g.moonflyTransparent = true
         vim.g.moonflyNormalFloat = true
         vim.g.moonflyUnderlineMatchParen = true
         vim.cmd.colorscheme 'moonfly'
