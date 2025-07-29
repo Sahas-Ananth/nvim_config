@@ -24,7 +24,13 @@ return {
         ignore_install = { 'latex' },
         -- You can specify additional Treesitter modules here: -- For example: -- playground = {--enable = true,-- },
         modules = {},
-        highlight = { enable = true, disable = { 'latex' }, additional_vim_regex_highlighting = { 'latex', 'markdown' } },
+        highlight = {
+            enable = true,
+            disable = { 'latex' },
+            additional_vim_regex_highlighting = {
+                'latex', --[[ 'markdown' ]]
+            },
+        },
         indent = { enable = true },
         incremental_selection = {
             enable = true,
