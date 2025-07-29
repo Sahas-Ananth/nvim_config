@@ -1,7 +1,9 @@
 --- @type LazySpec
 return {
-    dir = '/home/sahas/Documents/Projects/custom_nvim_plugins/Code_Annotate_nvim',
-    name = 'code_annotate',
+    -- dir = '/home/sahas/Documents/Projects/custom_nvim_plugins/Code_Annotate_nvim',
+    -- name = 'code_annotate',
+    'Sahas-Ananth/code_annotate.nvim',
+    enabled = true,
     dependencies = {
         'kkharji/sqlite.lua',
         -- 'nvim-lua/plenary.nvim',
