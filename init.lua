@@ -14,3 +14,6 @@ require 'lazy-bootstrap'
 
 -- [[ Configure and install plugins ]]
 require 'lazy-plugins'
+
+-- [[ Misc stuff ]]
+require 'misc'
