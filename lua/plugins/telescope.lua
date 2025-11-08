@@ -1,7 +1,7 @@
 --- @type LazyPlugin
 return {
     'nvim-telescope/telescope.nvim',
-    -- event = { 'VimEnter' },
+    event = { 'VimEnter' },
     branch = '0.1.x',
     dependencies = {
         'nvim-lua/plenary.nvim',
@@ -78,6 +78,16 @@ return {
                 })
             end,
             desc = '[/] Fuzzily search in current buffer',
+        },
+        {
+            '<leader>sgs',
+            function()
+                require('telescope.builtin').live_grep {
+                    glob_pattern = '[!test_]*.*pp',
+                    prompt_title = 'Search Grep Source only',
+                }
+            end,
+            desc = '[S]earch [G]rep [S]ource only',
         },
         { '<leader>?', '<cmd>Telescope oldfiles<cr>', desc = '[?] Find recently opened files' },
         { '<leader><space>', '<cmd>Telescope buffers<cr>', desc = '[ ] Find existing buffers' },
