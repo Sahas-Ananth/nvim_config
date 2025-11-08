@@ -7,7 +7,8 @@ return {
     enabled = true,
     dependencies = {
         'L3MON4D3/LuaSnip',
-        'giuxtaposition/blink-cmp-copilot',
+        -- 'giuxtaposition/blink-cmp-copilot',
+        'fang2hou/blink-copilot',
         'folke/lazydev.nvim',
     },
     ---@module 'blink.cmp'
@@ -17,8 +18,8 @@ return {
             preset = 'default',
             ['<Tab>'] = { 'fallback' },
             ['<S-Tab>'] = { 'fallback' },
-            ['<C-k>'] = { 'snippet_forward', 'fallback' },
-            ['<C-j>'] = { 'snippet_backward', 'fallback' },
+            ['<C-j>'] = { 'snippet_forward', 'fallback' },
+            ['<C-k>'] = { 'snippet_backward', 'fallback' },
         },
         appearance = {
             -- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -31,7 +32,7 @@ return {
         },
         snippets = { preset = 'luasnip' },
         sources = {
-            default = { 'lazydev', 'lsp', 'snippets', 'path', 'buffer' },
+            default = { 'lazydev', 'snippets', 'lsp', 'copilot', 'path', 'buffer' },
             providers = {
                 lazydev = {
                     name = 'LazyDev',
@@ -41,8 +42,8 @@ return {
                 },
                 copilot = {
                     name = 'copilot',
-                    module = 'blink-cmp-copilot',
-                    -- score_offset = 100,
+                    module = 'blink-copilot',
+                    score_offset = 100,
                     async = true,
                 },
             },
