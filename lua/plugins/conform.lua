@@ -46,6 +46,7 @@ return {
             python = { 'isort', 'black', 'docformatter' },
             bash = { 'beautysh' },
             bib = { 'bibtex-tidy' },
+            bzl = { 'buildifier' },
             c = { 'clang_format' },
             h = { 'clang_format' },
             cpp = { 'clang_format' },
