@@ -35,12 +35,10 @@ return {
                 },
             },
             lualine_b = {
-                -- function()
-                --     return ' ' .. os.date '%c'
-                -- end,
                 'branch',
-                'diff',
+                -- 'diff',
                 'diagnostics',
+                'grapple',
             },
             lualine_c = {
                 'buffers',
