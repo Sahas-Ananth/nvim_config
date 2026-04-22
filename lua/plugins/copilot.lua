@@ -1,6 +1,7 @@
 --- @type LazySpec
 return {
     'zbirenbaum/copilot.lua',
+    lazy = false,
     cmd = 'Copilot',
     -- dependencies = { 'zbirenbaum/copilot-cmp', config = true },
     build = ':Copilot auth',
