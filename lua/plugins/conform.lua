@@ -56,7 +56,7 @@ return {
             tex = { 'latexindent' },
             markdown = { 'markdown-toc' },
             lua = { 'stylua' },
-            ['*'] = { 'codespell' },
+            ['*'] = { 'codespell', 'trim_whitespace', 'trim_newlines' },
         },
         format_on_save = function(bufnr)
             -- Disable with a global or buffer-local variable
